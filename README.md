@@ -92,41 +92,17 @@ Even though rancher is ready you may face a 404 error due to an error on the ran
    kubectl -n cattle-system edit ingress cm-acme-http-solver-<random-id>
    ```
 
-3. Add the ingress class so the ingress controller looks like this:
+3. Add the ingress class to the spec like so:
    ```
-   # Please edit the object below. Lines beginning with a '#' will be ignored,
-   # and an empty file will abort the edit. If an error occurs while saving this file will be
-   # reopened with the relevant failures.
-   #
-   apiVersion: networking.k8s.io/v1
-   kind: Ingress
-   metadata:
-     <metadata here>
    spec:
      ingressClassName: nginx # This is the line to be added
-     rules:
-       <rules here>
-   status:
-     <status here>
    ```
 4. Edit the main ingress controller:
    ```
    kubectl -n cattle-system edit ingress rancher
    ```
-5. Add the ingress class so the ingress controller looks like this:
+5. Add the ingress class to the spec like so:
    ```
-   # Please edit the object below. Lines beginning with a '#' will be ignored,
-   # and an empty file will abort the edit. If an error occurs while saving this file will be
-   # reopened with the relevant failures.
-   #
-   apiVersion: networking.k8s.io/v1
-   kind: Ingress
-   metadata:
-     <metadata here>
    spec:
      ingressClassName: nginx # This is the line to be added
-     rules:
-       <rules here>
-   status:
-     <status here>
    ```
