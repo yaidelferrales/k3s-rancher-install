@@ -20,7 +20,7 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.26.10+k3s2 sh -s - --disab
 The config of the cluster is what allows `kubectl` to connect to k3s and perform all the actions on it. Run the following command to copy the cluster config to the user's home directory:
 
 ```
-sudo cp /etc/rancher/k3s/k3s.yaml .kube/config && sudo chmod 600 .kube/config sudo && chown <user>:<user> .kube/config
+sudo cp /etc/rancher/k3s/k3s.yaml .kube/config && sudo chmod 600 .kube/config && sudo chown <user>:<user> .kube/config
 ```
 
 ## _Install Worker (Optional)_
@@ -42,6 +42,24 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.26.10+k3s2 K3S_NODE_NAME=k
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/cloud/deploy.yaml
 ```
+
+### _Important note for AWS, Azure, GCP_
+
+If the ingress controller service does not have as external ip the server ip run the following commands:
+
+```
+kubectl -n ingress-nginx edit svc ingress-nginx-controller
+```
+
+Then add your IP as list to spec.externalIPs like so:
+```
+  spec:
+    externalIPs:
+    - <YOUR_IP>
+```
+
+
+
 
 ## _Install cert-manager_
 
